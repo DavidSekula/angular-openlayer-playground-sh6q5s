@@ -43,17 +43,21 @@ export class AppComponent {
   }
 
   displayLayer() {
-    this.http
+    return this.http
       .get(
         "https://raw.githubusercontent.com/DavidSekula/angular-openlayer-playground-sh6q5s/master/src/assets/oldme.txt",
         { responseType: "text" as "json" }
       )
-      .subscribe(data => {
+      .toPromise()
+      .then(data => {
+        this.imageOfMe = data;
+      })
+      .then(() => {
         const featureStyle = {
           symbol: {
             symbolType: "image",
-            src: data,
-            size: [40, 40],
+            src: this.imageOfMe,
+            size: [20, 20],
             rotateWithView: false,
             offset: [0, 0]
           }
