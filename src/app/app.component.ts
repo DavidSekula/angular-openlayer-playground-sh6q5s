@@ -54,9 +54,8 @@ export class AppComponent {
             symbolType: "image",
             src: data,
             size: [18, 28],
-            color: "lightyellow",
             rotateWithView: false,
-            offset: [0, 9]
+            offset: [0, 0]
           }
         };
 
