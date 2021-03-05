@@ -42,7 +42,7 @@ export class AppComponent {
     const featureStyle = {
       symbol: {
         symbolType: "image",
-        src: "assets/oldme.png",
+        src: "assets/oldme.txt",
         size: [18, 28],
         color: "lightyellow",
         rotateWithView: false,
