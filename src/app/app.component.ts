@@ -53,7 +53,7 @@ export class AppComponent {
           symbol: {
             symbolType: "image",
             src: data,
-            size: [18, 28],
+            size: [40, 40],
             rotateWithView: false,
             offset: [0, 0]
           }
