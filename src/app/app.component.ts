@@ -1,9 +1,8 @@
 import "ol/ol.css";
 import { Component, OnInit } from "@angular/core";
-import { map } from "rxjs/operators";
 import { Map, View, Feature, Point } from "ol";
 import { Tile as TileLayer, Vector as VectorLayer } from "ol/layer";
-import { XYZ, Vector as VectorSource } from "ol/source";
+import { Vector as VectorSource } from "ol/source";
 import { GeoJSON } from "ol/format";
 import OSM from "ol/source/OSM";
 import { WebGLPoints as WebGLPointsLayer } from "ol/layer";
@@ -43,7 +42,7 @@ export class AppComponent {
     const featureStyle = {
       symbol: {
         symbolType: "image",
-        src: "",
+        src: "assets/oldme.png",
         size: [18, 28],
         color: "lightyellow",
         rotateWithView: false,
