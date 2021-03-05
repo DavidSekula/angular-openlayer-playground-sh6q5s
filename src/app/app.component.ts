@@ -6,6 +6,7 @@ import { Vector as VectorSource } from "ol/source";
 import { GeoJSON } from "ol/format";
 import OSM from "ol/source/OSM";
 import { WebGLPoints as WebGLPointsLayer } from "ol/layer";
+import { HttpClient } from "@angular/common/http";
 
 @Component({
   selector: "my-app",
@@ -13,11 +14,14 @@ import { WebGLPoints as WebGLPointsLayer } from "ol/layer";
   styleUrls: ["./app.component.scss"]
 })
 export class AppComponent {
+  constructor(private readonly http: HttpClient) {}
+
   map: Map;
+  imageOfMe: any;
 
   vectorSource: VectorSource = new VectorSource({
     url:
-      "https://openlayers.org/en/latest/examples/data/geojson/world-cities.geojson",
+      "https://raw.githubusercontent.com/DavidSekula/angular-openlayer-playground-sh6q5s/master/src/assets/world-cities.json",
     format: new GeoJSON()
   });
 
@@ -35,33 +39,34 @@ export class AppComponent {
       })
     });
 
-    this.refreshLayer();
+    this.displayLayer();
   }
 
-  refreshLayer() {
-    const featureStyle = {
-      symbol: {
-        symbolType: "image",
-        src: "assets/oldme.txt",
-        size: [18, 28],
-        color: "lightyellow",
-        rotateWithView: false,
-        offset: [0, 9]
-      }
-    };
+  displayLayer() {
+    this.http
+      .get(
+        "https://raw.githubusercontent.com/DavidSekula/angular-openlayer-playground-sh6q5s/master/src/assets/oldme.txt",
+        { responseType: "text" as "json" }
+      )
+      .subscribe(data => {
+        const featureStyle = {
+          symbol: {
+            symbolType: "image",
+            src: data,
+            size: [18, 28],
+            color: "lightyellow",
+            rotateWithView: false,
+            offset: [0, 9]
+          }
+        };
 
-    const pointsLayer = new WebGLPointsLayer({
-      source: this.vectorSource,
-      style: featureStyle,
-      disableHitDetection: false
-    });
+        const pointsLayer = new WebGLPointsLayer({
+          source: this.vectorSource,
+          style: featureStyle,
+          disableHitDetection: false
+        });
 
-    this.map.addLayer(pointsLayer);
-    this.animate();
-  }
-
-  animate() {
-    this.map.render();
-    window.requestAnimationFrame(this.animate);
+        this.map.addLayer(pointsLayer);
+      });
   }
 }
